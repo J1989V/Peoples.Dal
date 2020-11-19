@@ -34,5 +34,5 @@ jobs:
       with:
         app-name: 'vantonderdal'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_ec1986284aae414e8c7a6eabb4f0dbf0 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_6753aede1b9446a888c06ccefbabde1a }}
         package: ./published/
