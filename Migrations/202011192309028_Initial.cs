@@ -8,6 +8,18 @@
         public override void Up()
         {
             CreateTable(
+                "dbo.PopiMetadatas",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        DatastoreName = c.String(),
+                        DatastoreType = c.String(),
+                        FieldType = c.String(),
+                        Category = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -94,6 +106,7 @@
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.PopiMetadatas");
         }
     }
 }

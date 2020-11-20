@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.AspNet.Identity.Owin;
 
@@ -31,25 +32,26 @@ namespace Peoples.Dal.Api
 
 		[HttpPost]
 		[AllowAnonymous]
-		public ApiLoginResult Login( ApiLogin value )
+		public async Task<SignInStatus> Login( ApiLogin value )
 		{
 			// This doesn't count login failures towards account lockout
 			// To enable password failures to trigger account lockout, change to shouldLockout: true
-			var result = SignInManager.PasswordSignInAsync( value.Email, value.Password, false, shouldLockout: false );
+			var result = await SignInManager.PasswordSignInAsync( value.Email, value.Password, false, shouldLockout: false );
 
-			if ( result.Result == SignInStatus.Success )
-			{
-				return new ApiLoginResult
-				{
-					Result = result.Result.ToString( ),
-					Token = "ToDoGenerateToken"
-				};
-			}
-			
-			return new ApiLoginResult
-			{
-				Result = result.Result.ToString( )
-			};
+			return result;
+			// if ( result.Result == SignInStatus.Success )
+			// {
+			// 	return new ApiLoginResult
+			// 	{
+			// 		Result = result.Result.ToString( ),
+			// 		Token = "ToDoGenerateToken"
+			// 	};
+			// }
+			//
+			// return new ApiLoginResult
+			// {
+			// 	Result = result.Result.ToString( )
+			// };
 		}
 
 		public class ApiLogin
