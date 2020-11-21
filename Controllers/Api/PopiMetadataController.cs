@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using Peoples.Dal.Helpers;
+using Peoples.Dal.Models;
 
 namespace Peoples.Dal.Controllers.Api
 {
@@ -18,6 +19,14 @@ namespace Peoples.Dal.Controllers.Api
 			var popiMetadatas = popiMetadatasHelper.GetPopiMetadatas( query );
 
 			return Ok( popiMetadatas );
+		}
+
+		// POST
+		public IHttpActionResult InsertPopiMetadatas( IdentificationNumberViewModel identificationNumberViewModel )
+		{
+			var result = popiMetadatasHelper.InsertIdentificationMetadata( identificationNumberViewModel );
+
+			return Ok( result );
 		}
 	}
 }
