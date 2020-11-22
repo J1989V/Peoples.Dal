@@ -2,7 +2,7 @@
 
 namespace Peoples.Dal.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<PopiDbContext>
     {
         public Configuration()
         {

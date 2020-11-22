@@ -3,11 +3,11 @@ using Peoples.Dal.Models;
 
 namespace Peoples.Dal.ModelConfigurations
 {
-	public class PopMetadataConfig : EntityTypeConfiguration<PopiMetadata>
+	public class DataStoreConfig : EntityTypeConfiguration<DataStore>
 	{
-		public PopMetadataConfig( )
+		public DataStoreConfig( )
 		{
-			HasKey( p => p.Id );
+			HasKey( x => x.Id );
 		}
 	}
 }

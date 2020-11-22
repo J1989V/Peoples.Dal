@@ -1,9 +1,10 @@
 ﻿using System.Net.Http;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.AspNet.Identity.Owin;
 
-namespace Peoples.Dal.Api
+namespace Peoples.Dal.Controllers.Api
 {
 	public class LoginController : ApiController
 	{
@@ -32,26 +33,17 @@ namespace Peoples.Dal.Api
 
 		[HttpPost]
 		[AllowAnonymous]
-		public async Task<SignInStatus> Login( ApiLogin value )
+		public async Task<ApiLoginResult> Login( ApiLogin value )
 		{
 			// This doesn't count login failures towards account lockout
 			// To enable password failures to trigger account lockout, change to shouldLockout: true
 			var result = await SignInManager.PasswordSignInAsync( value.Email, value.Password, false, shouldLockout: false );
 
-			return result;
-			// if ( result.Result == SignInStatus.Success )
-			// {
-			// 	return new ApiLoginResult
-			// 	{
-			// 		Result = result.Result.ToString( ),
-			// 		Token = "ToDoGenerateToken"
-			// 	};
-			// }
-			//
-			// return new ApiLoginResult
-			// {
-			// 	Result = result.Result.ToString( )
-			// };
+			return new ApiLoginResult
+			{
+				User = User,
+				SignInStatus = result
+			};
 		}
 
 		public class ApiLogin
@@ -63,9 +55,9 @@ namespace Peoples.Dal.Api
 
 		public class ApiLoginResult
 		{
-			public string Result { get; set; }
+			public IPrincipal User { get; set; }
 
-			public string Token { get; set; }
+			public SignInStatus SignInStatus { get; set; }
 		}
 	}
 }

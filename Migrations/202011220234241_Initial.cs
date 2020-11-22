@@ -8,39 +8,41 @@
         public override void Up()
         {
             CreateTable(
-                "dbo.IdentificationNumberPopiMetadataMaps",
+                "dbo.DataStores",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        IdentificationNumberId = c.Int(nullable: false),
-                        PopiMetadataId = c.Int(nullable: false),
+                        Name = c.String(),
+                        Type = c.String(),
+                        Location = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.TableTabs",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        DataStoreId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.IdentificationNumbers", t => t.IdentificationNumberId, cascadeDelete: true)
-                .ForeignKey("dbo.PopiMetadatas", t => t.PopiMetadataId, cascadeDelete: true)
-                .Index(t => t.IdentificationNumberId)
-                .Index(t => t.PopiMetadataId);
+                .ForeignKey("dbo.DataStores", t => t.DataStoreId, cascadeDelete: true)
+                .Index(t => t.DataStoreId);
             
             CreateTable(
-                "dbo.IdentificationNumbers",
+                "dbo.Fields",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        SaltedIdentificationNumber = c.String(),
+                        Name = c.String(),
+                        Row = c.Int(nullable: false),
+                        Category = c.Int(nullable: false),
+                        TableTabId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.PopiMetadatas",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        DatastoreName = c.String(),
-                        DatastoreType = c.String(),
-                        FieldType = c.String(),
-                        Category = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.TableTabs", t => t.TableTabId, cascadeDelete: true)
+                .Index(t => t.TableTabId);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -118,24 +120,24 @@
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.IdentificationNumberPopiMetadataMaps", "PopiMetadataId", "dbo.PopiMetadatas");
-            DropForeignKey("dbo.IdentificationNumberPopiMetadataMaps", "IdentificationNumberId", "dbo.IdentificationNumbers");
+            DropForeignKey("dbo.Fields", "TableTabId", "dbo.TableTabs");
+            DropForeignKey("dbo.TableTabs", "DataStoreId", "dbo.DataStores");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.IdentificationNumberPopiMetadataMaps", new[] { "PopiMetadataId" });
-            DropIndex("dbo.IdentificationNumberPopiMetadataMaps", new[] { "IdentificationNumberId" });
+            DropIndex("dbo.Fields", new[] { "TableTabId" });
+            DropIndex("dbo.TableTabs", new[] { "DataStoreId" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.PopiMetadatas");
-            DropTable("dbo.IdentificationNumbers");
-            DropTable("dbo.IdentificationNumberPopiMetadataMaps");
+            DropTable("dbo.Fields");
+            DropTable("dbo.TableTabs");
+            DropTable("dbo.DataStores");
         }
     }
 }
