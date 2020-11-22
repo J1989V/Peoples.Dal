@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using Peoples.Dal.Dtos;
 using Peoples.Dal.Helpers;
-using Peoples.Dal.ModelConfigurations;
 
 namespace Peoples.Dal.Controllers.Api
 {

@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Web.WebPages;
 using ClosedXML.Excel;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Peoples.Dal.Dtos;
 
@@ -135,7 +134,6 @@ namespace Peoples.Dal.Helpers
 			}
 
 			JObject jObject = JObject.Parse( text );
-			//jObject.SelectTokens( "data" );
 
 			var data = jObject.First;
 
@@ -273,7 +271,7 @@ namespace Peoples.Dal.Helpers
 			       field.Value.Equals( "judaism", StringComparison.InvariantCultureIgnoreCase );
 		}
 
-		public class JsonDataBody
+		private class JsonDataBody
 		{
 			public string national_id { get; set; }
 			public string first_name { get; set; }

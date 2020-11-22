@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using Peoples.Dal.Dtos;
 using Peoples.Dal.Enums;
 using Peoples.Dal.Models;
